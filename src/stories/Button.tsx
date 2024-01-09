@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import "./button.css";
 
 interface ButtonProps {
@@ -31,8 +32,16 @@ export const Button = ({
   size = "medium",
   backgroundColor,
   label,
+  onClick,
   ...props
 }: ButtonProps) => {
+  const onClickRef = useRef(onClick);
+
+  useEffect(() => {
+    console.log("fn onClick identical", onClickRef.current === onClick);
+    onClickRef.current = onClick;
+  }, [onClick, onClickRef]);
+
   const mode = primary
     ? "storybook-button--primary"
     : "storybook-button--secondary";
@@ -45,6 +54,7 @@ export const Button = ({
         " "
       )}
       style={{ backgroundColor }}
+      onClick={onClick}
       {...props}
     >
       {label}

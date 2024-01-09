@@ -3,12 +3,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./Button";
 import { useCallback, useState } from "react";
 
-// eslint-disable-next-line @typescript-eslint/ban-types
-const logger = (fn: () => void) => {
-  console.count("callback recomputed");
-  return fn;
-};
-
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta: Meta<typeof Button> = {
   title: "Optims/useCallback",
@@ -32,10 +26,10 @@ export const Stateful: Story = {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [counter, setCounter] = useState(0);
 
-    const increment = logger(() => {
+    const increment = () => {
       onClick?.();
       setCounter((prev) => prev + 1);
-    });
+    };
 
     return (
       <div>
@@ -55,13 +49,10 @@ export const StatefulCallback: Story = {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [counter, setCounter] = useState(0);
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const incrementCallback = useCallback(
-      logger(() => {
-        onClick?.();
-        setCounter((prev) => prev + 1);
-      }),
-      [onClick]
-    );
+    const incrementCallback = useCallback(() => {
+      onClick?.();
+      setCounter((prev) => prev + 1);
+    }, [onClick]);
     return (
       <div>
         <div>Counter : {counter}</div>
@@ -77,10 +68,10 @@ export const StatefulCallback: Story = {
 
 export const Stateless: Story = {
   render: ({ onClick, ...args }) => {
-    const log = logger(() => {
+    const log = () => {
       onClick?.();
       console.count("click");
-    });
+    };
 
     return <Button onClick={log} {...args}></Button>;
   },
@@ -93,13 +84,10 @@ export const Stateless: Story = {
 export const StatelessCallback: Story = {
   render: ({ onClick, ...args }) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const logCallback = useCallback(
-      logger(() => {
-        onClick?.();
-        console.count("click");
-      }),
-      [onClick]
-    );
+    const logCallback = useCallback(() => {
+      onClick?.();
+      console.count("click");
+    }, [onClick]);
 
     return <Button onClick={logCallback} {...args}></Button>;
   },
