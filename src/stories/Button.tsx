@@ -38,7 +38,6 @@ export const Button = ({
   const onClickRef = useRef(onClick);
 
   useEffect(() => {
-    console.log("fn onClick identical", onClickRef.current === onClick);
     onClickRef.current = onClick;
   }, [onClick, onClickRef]);
 
@@ -46,7 +45,8 @@ export const Button = ({
     ? "storybook-button--primary"
     : "storybook-button--secondary";
 
-  console.count("render");
+  console.log("Did fn onClick change ? ", onClickRef.current === onClick);
+  console.count("Button render count");
   return (
     <button
       type="button"

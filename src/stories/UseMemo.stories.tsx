@@ -65,7 +65,6 @@ export const Stateless: Story = {
     const increment = () => {
       onClick?.();
       setCounter((prev) => prev + 1);
-      console.log("memoized : ", memoized);
     };
 
     return (

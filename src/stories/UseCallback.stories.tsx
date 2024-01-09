@@ -45,7 +45,7 @@ export const Stateful: Story = {
   },
   args: {
     primary: true,
-    label: "Button",
+    label: "Click me",
   },
 };
 
@@ -75,7 +75,7 @@ export const StatefulCallback: Story = {
   },
   args: {
     primary: true,
-    label: "Button",
+    label: "Click me",
   },
 };
 
@@ -96,7 +96,7 @@ export const Stateless: Story = {
   },
   args: {
     primary: true,
-    label: "Button",
+    label: "Click me",
   },
 };
 
@@ -116,6 +116,6 @@ export const StatelessCallback: Story = {
   },
   args: {
     primary: true,
-    label: "Button",
+    label: "Click me",
   },
 };
