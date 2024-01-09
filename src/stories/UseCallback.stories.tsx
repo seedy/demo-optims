@@ -23,6 +23,11 @@ type Story = StoryObj<typeof Button>;
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Stateful: Story = {
   render: ({ onClick, ...args }) => {
+    /**
+     * Lorsque useCallback n'est pas utilisé,
+     * La fonction increment est recalculée à chaque render et tout le return est recréé
+     */
+
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [counter, setCounter] = useState(0);
 
@@ -46,6 +51,14 @@ export const Stateful: Story = {
 
 export const StatefulCallback: Story = {
   render: ({ onClick, ...args }) => {
+    /**
+     * Lorsqu'on wrap la fonction avec un useCallBack,
+     * La fonction n'est pas recalculée à chaque render, tant que les dépendances ne changent pas
+     * Le bouton est rerendue forcément à chaque fois
+     * Par défaut osef d'opti => Si on fait face a des rerender qui posent problème qu'on va optimiser
+     * Le plus gros défi : D'arriver à définir correctement une action lourde à optimiser
+     * Un cas ou le useEffect de mon composant call une fonction recu en props
+     */
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [counter, setCounter] = useState(0);
     // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -67,6 +80,12 @@ export const StatefulCallback: Story = {
 };
 
 export const Stateless: Story = {
+  /**
+   * Comme pas de state, pas de re-render
+   * On peut donc se permettre de ne pas utiliser useCallback
+   * Fonction jamais re-render
+   * Le composant Stateless n'est jamais rerender, donc fonction déclarée qu'une seule fois
+   */
   render: ({ onClick, ...args }) => {
     const log = () => {
       onClick?.();
@@ -82,6 +101,10 @@ export const Stateless: Story = {
 };
 
 export const StatelessCallback: Story = {
+  /**
+   *
+   * Pas de difference entre stateless et statelessCallback
+   */
   render: ({ onClick, ...args }) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const logCallback = useCallback(() => {
