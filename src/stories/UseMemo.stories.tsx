@@ -10,6 +10,10 @@ const meta: Meta<typeof Button> = {
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: "centered",
+    relatedLink: {
+      text: "React - useMemo",
+      url: "https://fr.react.dev/reference/react/useMemo",
+    },
   },
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
